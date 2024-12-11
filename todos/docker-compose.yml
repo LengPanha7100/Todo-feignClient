@@ -1,0 +1,36 @@
+services:
+  todos-postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: todos_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+    volumes:
+      - todos-postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+    networks:
+      - todos-network
+
+  todos-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8082:8888"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://todos-postgres:5432/todos_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 12345
+    depends_on:
+      - todos-postgres
+    networks:
+      - todos-network
+
+volumes:
+  todos-postgres-data:
+networks:
+  todos-network:
+    driver: bridge

@@ -1,0 +1,36 @@
+services:
+  category-postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: category_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+    volumes:
+      - category-postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - category-network
+
+  category-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8081:8888"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://category-postgres:5432/category_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 12345
+    depends_on:
+      - category-postgres
+    networks:
+      - category-network
+
+volumes:
+  category-postgres-data:
+networks:
+  category-network:
+    driver: bridge

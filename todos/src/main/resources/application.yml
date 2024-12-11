@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: todos
+  datasource:
+    password: 12345
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/category_feign_client
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+    database: postgresql
+    hibernate:
+      ddl-auto: update

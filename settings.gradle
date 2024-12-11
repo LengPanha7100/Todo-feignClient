@@ -1,0 +1,4 @@
+rootProject.name = 'category-feingClient'
+include 'category'
+include 'todos'
+

@@ -27,10 +27,10 @@ services:
     depends_on:
       - category-postgres
     networks:
-      - category-network
+      - todo-list-network
 
 volumes:
   category-postgres-data:
 networks:
-  category-network:
-    driver: bridge
+  todo-list-network:
+    external: true

@@ -27,10 +27,10 @@ services:
     depends_on:
       - todos-postgres
     networks:
-      - todos-network
+      - todo-list-network
 
 volumes:
   todos-postgres-data:
 networks:
-  todos-network:
-    driver: bridge
+  todo-list-network:
+    external: true

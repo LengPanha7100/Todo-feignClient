@@ -11,7 +11,7 @@ services:
     ports:
       - "5434:5432"
     networks:
-      - todos-network
+      - todo-list-network
 
   todos-api:
     build:
